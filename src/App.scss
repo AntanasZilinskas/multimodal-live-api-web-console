@@ -1,5 +1,16 @@
 :root {
-  --text: white;
+  /* Primary brand color: #234757 (solid) */
+  --primary: #234757;
+  /* Secondary (light) color: #FAFAFA */
+  --secondary: #FAFAFA;
+  /* Accent color: #234757 @ 44% opacity => rgba(35,71,87,0.44) */
+  --accent: rgba(35, 71, 87, 0.44);
+
+  /* If you'd like versions of your new palette for various states, define them here: */
+  --primary-light: #33697b; /* e.g., lighten #234757 a bit */
+  --primary-dark: #132b33;  /* e.g., darken #234757 a bit */
+
+  /* Retain your grayscale variables if you still use them in places: */
   --gray-200: #b4b8bb;
   --gray-300: #80868b;
   --gray-500: #5f6368;
@@ -8,24 +19,16 @@
   --gray-800: #171717;
   --gray-900: #111111;
   --gray-1000: #0a0a0a;
-  --border-stroke: #444444;
-  --accent-blue: rgb(161, 228, 242);
-  --accent-blue-active-bg: #001233;
-  --accent-blue-active: #98beff;
-  --accent-blue-headers: #448dff;
-  --accent-green: rgb(168, 218, 181);
 
-  --midnight-blue: rgb(0, 18, 51);
-  --blue-30: #99beff;
+  /* Overhaul "background" and "color" to match #FAFAFA (background) and #234757 (text) */
+  --background: var(--secondary);
+  --color: var(--primary);
 
-  --accent-red: #ff4600;
-
-  --background: var(--gray-900);
-  --color: var(--text);
-
-  scrollbar-color: var(--gray-600) var(--gray-900);
+  /* Scrollbars (optional) */
+  scrollbar-color: var(--primary-dark) var(--secondary);
   scrollbar-width: thin;
 
+  /* Your preferred font family */
   --font-family: "Space Mono", monospace;
 
   /* */
@@ -53,11 +56,20 @@
 }
 
 body {
-  font-family: "Space Mono", monospace;
-  background: var(--Neutral-30);
+  font-family: var(--font-family), monospace;
+  background: var(--background);
+  color: var(--color);
+  margin: 0;
+  padding: 0;
 }
 
 .material-symbols-outlined {
+  font-variation-settings: 
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+
   &.filled {
     font-variation-settings:
       "FILL" 1,
@@ -121,76 +133,75 @@ body,
   padding: 0;
   width: 100%;
   height: 100%;
-  font-family: sans-serif; /* or your chosen font */
 }
 
-/* 
-  Container for the entire layout. 
-  Contains the side panel on the left and the main area on the right. 
-*/
+/* Main layout container */
 .streaming-console {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
+  background-color: var(--background);
 }
 
-/* Side panel pinned on the left. Adjust width as you like. */
+/* Side panel pinned on the left */
 .streaming-console > .side-panel {
+  /* Keep the side panel consistent with your palette, or override in side-panel.scss */
   width: 250px;
   min-width: 250px;
-  background-color: #222; /* Example dark background */
+  background-color: var(--secondary);
+  color: var(--primary);
+  border-right: 1px solid var(--accent);
   z-index: 10;
 }
 
-/* The main area is to the right of the side panel, 
-   and we'll let it be position: relative for easy layering. */
+/* The main area to the right of the side panel */
 .streaming-console main {
   flex: 1;
   position: relative;
   overflow: hidden; /* Avoid scrollbars around the whiteboard background */
   display: flex;
   flex-direction: column;
+  background-color: var(--background);
+  color: var(--color);
 }
 
-/* The whiteboard is positioned to fill the entire 'main' area. */
+/* Whiteboard filling the entire `main` area */
 .whiteboard-full-screen {
-  /* Let the Whiteboard fill up this container completely */
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-
-  /* Because Excalidraw automatically expands to fill,
-     you just need to give it nonzero dimensions. */
   display: flex;
   flex-direction: column;
+  background-color: var(--secondary);
 }
 
-/* Your video (optional). Hide it if no stream is present. */
+/* The optional video stream styling */
 .stream {
   position: absolute;
-  bottom: 80px; /* keep it above the control tray by ~80px */
+  bottom: 80px;
   right: 20px;
   width: 300px;
   border-radius: 8px;
-  background: #000; /* black background behind the video */
+  background: var(--primary-dark);
+
   &.hidden {
     display: none;
   }
 }
 
-/* The ControlTray is pinned at the bottom. */
+/* The ControlTray pinned at the bottom. */
 .control-tray {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 20; /* be above the whiteboard */
+  z-index: 20;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  background-color: transparent; /* or remove altogether */
+  color: var(--secondary);
 }
