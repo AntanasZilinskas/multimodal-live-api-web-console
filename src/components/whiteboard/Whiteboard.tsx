@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Excalidraw, exportToBlob } from "@excalidraw/excalidraw";
-import "@excalidraw/excalidraw/dist/excalidraw.min.css";
 import "./Whiteboard.scss";
 
 /**
