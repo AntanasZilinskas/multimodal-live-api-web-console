@@ -1,0 +1,46 @@
+.whiteboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: var(--gray-900);
+
+  .whiteboard-toolbar {
+    flex-shrink: 0;
+    padding: 1rem;
+    background-color: var(--gray-800);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    button {
+      background: var(--accent-blue);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gray-900);
+
+      &:hover {
+        background: var(--accent-blue-active);
+      }
+    }
+
+    a {
+      color: var(--accent-blue-headers);
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .whiteboard-excalidraw {
+    flex-grow: 1;
+    height: 0; /* so flex-grow can do the sizing */
+    min-height: 400px;
+    overflow: hidden; 
+    /* The Excalidraw component will fill this container. Make sure it has nonzero dimensions. */
+  }
+} 
