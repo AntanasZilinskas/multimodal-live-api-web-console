@@ -46,12 +46,7 @@ export const Whiteboard = () => {
   return (
     <div className="whiteboard-container">
       <div className="whiteboard-toolbar">
-        <button onClick={handleExport}>Export as PNG</button>
-        {blobUrl && (
-          <a href={blobUrl} download="whiteboard.png">
-            Download PNG
-          </a>
-        )}
+        {/* Removed "Export as PNG" button */}
       </div>
 
       <div className="whiteboard-excalidraw">
