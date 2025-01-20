@@ -75,14 +75,17 @@ export default function SidePanel() {
   return (
     <div className={`side-panel ${open ? "open" : ""}`}>
       <header className="top">
-        <h2>Amphi Canvas</h2>
+        <div className="logo-and-title">
+          <img src="/logo.svg" alt="Amphi Logo" className="amphi-logo" />
+          <h2>amphi canvas</h2>
+        </div>
         {open ? (
           <button className="opener" onClick={() => setOpen(false)}>
-            <RiSidebarFoldLine color="#b4b8bb" />
+            <RiSidebarFoldLine color="#FAFAFA" />
           </button>
         ) : (
           <button className="opener" onClick={() => setOpen(true)}>
-            <RiSidebarUnfoldLine color="#b4b8bb" />
+            <RiSidebarUnfoldLine color="#FAFAFA" />
           </button>
         )}
       </header>
@@ -93,20 +96,46 @@ export default function SidePanel() {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              background: "var(--Neutral-15)",
-              color: "var(--Neutral-90)",
+              backgroundColor: "#94A4AB",
+              border: "1px solid #234757",
+              color: "#FAFAFA",
               minHeight: "33px",
               maxHeight: "33px",
-              border: 0,
+              boxShadow: "none",
+              "&:hover": {
+                borderColor: "#234757",
+              },
             }),
-            option: (styles, { isFocused, isSelected }) => ({
-              ...styles,
-              backgroundColor: isFocused
-                ? "var(--Neutral-30)"
-                : isSelected
-                  ? "var(--Neutral-20)"
-                  : undefined,
+            singleValue: (baseStyles) => ({
+              ...baseStyles,
+              color: "#FAFAFA",
             }),
+            menu: (baseStyles) => ({
+              ...baseStyles,
+              backgroundColor: "#94A4AB",
+              border: "1px solid #234757",
+              boxShadow: "none",
+            }),
+            option: (baseStyles, { isFocused, isSelected }) => {
+              let bg = "#94A4AB";
+              let color = "#FAFAFA";
+
+              if (isFocused) {
+                bg = "#234757";
+                color = "#FAFAFA";
+              }
+              if (isSelected) {
+                bg = "#234757";
+                color = "#FAFAFA";
+              }
+
+              return {
+                ...baseStyles,
+                backgroundColor: bg,
+                color,
+                cursor: "pointer",
+              };
+            },
           }}
           defaultValue={selectedOption}
           options={filterOptions}

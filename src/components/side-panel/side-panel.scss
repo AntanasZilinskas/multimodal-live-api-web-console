@@ -69,11 +69,24 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px 12px 25px;
+    border-bottom: 1px solid #234757;
+
+    .logo-and-title {
+      display: flex;
+      align-items: center;
+      /* small horizontal gap between the logo and the text */
+      gap: 10px;
+    }
+
+    .amphi-logo {
+      width: 28px;  /* or however large you want the logo to be */
+      height: auto;
+    }
 
     h2 {
       position: relative;
       color: #234757;
-      font-family: "Google Sans", sans-serif;
+      font-family: "Poppins", sans-serif;
       font-size: 21px;
       font-style: normal;
       font-weight: 500;
@@ -265,4 +278,25 @@
   line-height: 1.75rem;
   padding: 4px;
   color: #234757;
+}
+
+/* 
+  Suppose your user messages have a class like ".user-message" or 
+  ".log-entry.user" inside the side-panel container. 
+  Below is an example using ".logger__entry.user-message";
+  adjust as needed to match your real HTML structure.
+*/
+.side-panel-container .logger__entry.user-message {
+  background-color: rgba(35,71,87,0.2); /* #234757 at 20% opacity */
+  color: #234757;                       /* Text remains #234757 or switch to #FAFAFA for contrast */
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin: 6px 0;
+
+  /* If you have a border or want a subtle border in #234757 at 44% opacity (optional): */
+  border: 1px solid rgba(35,71,87,0.44);
+}
+
+.part.part-text {
+  background-color: #94A4AB;
 }
