@@ -1,9 +1,14 @@
+/************************************************************
+ * Control Tray aligned with #94A4AB (BG), #FAFAFA (Text), #234757 (Accent)
+ ************************************************************/
+
+/* Generic action button styling */
 .action-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--Neutral-20);
-  color: var(--Neutral-60);
+  background: #94A4AB;       /* Dark blue background */
+  color: #FAFAFA;            /* White text */
   font-size: 1.25rem;
   line-height: 1.75rem;
   text-transform: lowercase;
@@ -13,18 +18,20 @@
   width: 48px;
   height: 48px;
   border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0);
+  border: 1px solid transparent;
   user-select: none;
-  cursor: pointer;
 
   &:focus {
-    border: 2px solid var(--Neutral-20);
-    outline: 2px solid var(--Neutral-80);
+    /* Accent color for focus ring */
+    border: 2px solid #234757;
+    outline: 2px solid #234757;
   }
 
   &.outlined {
-    background: var(--Neutral-2);
-    border: 1px solid var(--Neutral-20);
+    /* A lighter, more "outlined" look */
+    background: #FAFAFA;
+    color: #94A4AB;
+    border: 1px solid #234757;
   }
 
   .no-action {
@@ -32,47 +39,52 @@
   }
 
   &:hover {
-    background: rgba(0, 0, 0, 0);
-    border: 1px solid var(--Neutral-20);
+    background: #234757;      /* Slightly darker hover color */
+    border: 1px solid #234757;
+    color: #FAFAFA;
   }
 
   &.connected {
-    background: var(--Blue-800);
-    color: var(--Blue-500);
+    /* If "connected" is a special state, invert the highlight if wanted */
+    background: #234757;      /* Different color to indicate "connected" */
+    color: #FAFAFA;
 
     &:hover {
-      border: 1px solid var(--Blue-500);
+      background: #94A4AB;
+      border: 1px solid #234757;
     }
   }
 }
 
+/* Volume property (used by the mic pulse effect) */
 @property --volume {
   syntax: "length";
   inherit: false;
   initial-value: 0px;
 }
 
+/* The mic button if you want to keep the red "recording" look */
 .disabled .mic-button,
 .mic-button.disabled {
   &:before {
-    background: rgba(0, 0, 0, 0);
+    background: transparent;
   }
 }
 
 .mic-button {
   position: relative;
-  background-color: var(--accent-red);
+  background-color: #B03333; /* A deep red for the mic / recording state */
   z-index: 1;
-  color: black;
+  color: #FAFAFA;
   transition: all 0.2s ease-in;
 
   &:focus {
-    border: 2px solid var(--Neutral-20);
-    outline: 2px solid var(--Red-500);
+    border: 2px solid #234757;
+    outline: 2px solid #234757;
   }
 
   &:hover {
-    background-color: var(--Red-400);
+    background-color: #A52626; /* Slightly darker red on hover */
   }
 
   &:before {
@@ -83,7 +95,7 @@
     display: block;
     content: "";
     opacity: 0.35;
-    background-color: var(--Red-500);
+    background-color: #B03333; /* Follows the main mic color */
     width: calc(100% + var(--volume) * 2);
     height: calc(100% + var(--volume) * 2);
     border-radius: 24px;
@@ -91,18 +103,50 @@
   }
 }
 
+/* Toggle button to connect/disconnect, etc. */
 .connect-toggle {
-  &:focus {
-    border: 2px solid var(--Neutral-20);
-    outline: 2px solid var(--Neutral-80);
+  /* Force single line of text (no wrap) */
+  white-space: nowrap;
+
+  /* Use Poppins font at a comfortable size/weight */
+  font-family: "Poppins", sans-serif;
+  font-weight: 500; /* or 400, etc. */
+  font-size: 1rem;  /* Adjust as needed */
+
+  /* Increase padding to accommodate "Stop Session" text */
+  padding: 0.5rem 1rem;
+
+  /* If you'd like a minimum width so the text doesn't look cramped */
+  min-width: 120px;
+
+  /* Keep your existing color scheme or override if you like:
+     example background, border, hover states, etc.
+  */
+  background-color: #234757; /* or #3F5F6D if that's your tray color */
+  color: #FAFAFA;
+  border: 1px solid #234757;
+  border-radius: 18px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #3F5F6D;
+    border-color: #234757;
+    color: #FAFAFA;
   }
 
-  &:not(.connected) {
-    background-color: var(--Blue-500);
-    color: var(--Neutral-5);
+  &.connected {
+    /* For the "Stop Session" style, you could invert or keep the same.
+       Example: Keep the same color or make it stand out more:
+    */
+    background-color: #234757;
+    color: #FAFAFA;
+    &:hover {
+      background-color: #3F5F6D;
+    }
   }
 }
 
+/* The main control tray container */
 .control-tray {
   position: absolute;
   bottom: 0;
@@ -114,11 +158,20 @@
   gap: 8px;
   padding-bottom: 18px;
 
+  /* If you want a background behind the tray:
+     background: #94A4AB;
+     border: 1px solid #234757;
+     border-radius: 12px; 
+  */
+
   .disabled .action-button,
   .action-button.disabled {
-    background: rgba(0, 0, 0, 0);
-    border: 1px solid var(--Neutral-30, #404547);
-    color: var(--Neutral-30);
+    /* Example "disabled" style: transparent background, faint border/text */
+    background: transparent;
+    border: 1px solid #234757;
+    opacity: 0.5;
+    color: #FAFAFA;
+    cursor: not-allowed;
   }
 
   .connection-container {
@@ -130,14 +183,14 @@
 
     .connection-button-container {
       border-radius: 27px;
-      border: 1px solid var(--Neutral-30);
-      background: var(--Neutral-5);
+      border: 1px solid #234757;
+      background: #94A4AB;
       padding: 10px;
     }
 
     .text-indicator {
       font-size: 11px;
-      color: var(--Blue-500);
+      color: #FAFAFA;
       user-select: none;
     }
 
@@ -149,9 +202,10 @@
   }
 }
 
+/* The "actions nav" container, if used */
 .actions-nav {
-  background: var(--Neutral-5);
-  border: 1px solid var(--Neutral-30);
+  background: #94A4AB;
+  border: 1px solid #234757;
   border-radius: 27px;
   display: inline-flex;
   gap: 12px;
@@ -161,7 +215,7 @@
 
   transition: all 0.6s ease-in;
 
-  &>* {
+  & > * {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -169,6 +223,7 @@
   }
 }
 
+/* Simple opacity pulse animation for idle states */
 @keyframes opacity-pulse {
   0% {
     opacity: 0.9;
